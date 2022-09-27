@@ -32,6 +32,21 @@ variable "autoscaling" {
   default = null
 }
 
+variable "ingress" {
+  description = "Ingress configurations"
+  type = object({
+    annotations = optional(map(string))
+    # rules = array({
+    # 	host = string
+    # 	paths = array({
+    # 		path = string
+    # 		path_type = string
+    # 	})
+    # })
+  })
+  default = {}
+}
+
 variable "env" {
   description = "Environment variables for the Keycloak container"
   type        = map(string)
@@ -42,6 +57,25 @@ variable "startup_scripts" {
   description = "Startup scripts to be run when the Keycloak container is initalized"
   type        = map(string)
   default     = {}
+}
+
+variable "resources" {
+  type = object({
+    limits = optional(object({
+      cpu    = optional(string)
+      memory = optional(string)
+    }))
+    requests = optional(object({
+      cpu    = optional(string)
+      memory = optional(string)
+    }))
+  })
+  default = {
+    requests = {
+      cpu    = 0.1
+      memory = "500M"
+    }
+  }
 }
 
 variable "affinity_required_node_labels" {

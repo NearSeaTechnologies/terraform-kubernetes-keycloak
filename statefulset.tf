@@ -60,10 +60,8 @@ resource "kubernetes_stateful_set" "keycloak" {
           }
 
           resources {
-            requests = {
-              cpu    = 0.1
-              memory = "500M"
-            }
+            limits   = try(var.resources.limits, null)
+            requests = try(var.resources.requests, null)
           }
 
           startup_probe {
