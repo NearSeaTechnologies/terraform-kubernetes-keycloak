@@ -7,7 +7,7 @@ variable "name" {
 variable "image" {
   description = "Docker image for the Keycloak container"
   type        = string
-  default     = "quay.io/keycloak/keycloak:latest"
+  default     = "quay.io/keycloak/keycloak:16.1.1"
 }
 
 variable "namespace" {
